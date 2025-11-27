@@ -39,12 +39,23 @@ useEffect(() => {
                   <Link to="/Profile" className="text-foreground hover:text-orange transition-colors">
                 Profile
               </Link>
+
+               <Link to="/blog" className="text-foreground hover:text-orange transition-colors">
+                Blog
+              </Link>
+                  <Link to="/my-blogs" className="text-foreground hover:text-orange transition-colors">
+                my-blogs
+              </Link>
             </nav>
           </div>
 
           {/* Right - Icons & Auth */}
           <div className="flex items-center space-x-4">
-            
+{/*             
+<Route path="my-blogs" element={<UserBlogsPage />} />
+      <Route path="my-blogs/add" element={<AddBlogForm />} />
+      <Route path="my-blogs/:slug" element={<UserBlogDetail />} />
+      <Route path="my-blogs/edit/:blogId" element={<EditBlogForm />} /> */}
 
             
 

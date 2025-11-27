@@ -1,5 +1,4 @@
 import api from "@/lib/axios/api";
-import type{ IChatRoomFilter } from "@/types/IChatRoom";
  
 interface CreateChatRoomPayload {
   participants: string[];
@@ -40,7 +39,7 @@ export const getChatRoomById=async(roomId:string)=>{
 //     return response.data
 // }
 
-export const getUserRoom = async (filters?: IChatRoomFilter) => {
+export const getUserRoom = async (filters:any) => {
   const response = await api.get(`/user/chatrooms`, {
     params: filters, 
   });
