@@ -6,7 +6,7 @@ import EditProfile from '@/pages/user/profile/EditProfile';
 import UserBlogsPage from '@/pages/user/blog/UserBlogsPage';
 import AddBlogForm from '@/pages/user/blog/AddBlogForm';
 import EditBlogForm from '@/pages/user/blog/EditBlogForm';
-import UserBlogDetail from '@/pages/user/blog/UserBlogDetails';
+import UserBlogDetail from '@/pages/user/blog/UserBlogDetail';
  const ProtectedRoutes = (
 
   <Route element={<UserProtectedRoutes />}>
