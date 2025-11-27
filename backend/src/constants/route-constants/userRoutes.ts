@@ -27,3 +27,18 @@ export const BLOCK_ROUTE={
   IS_BLOCKED:'/blocked/:blockedId',
   GELL_ALL:'blocked'
 }
+
+
+export const BLOG_ROUTES = {
+  CREATE: '/blog/create',
+  EDIT: '/blog/edit/:blogId',
+  GET_ALL: '/blogs',
+  GET_USER_BLOGS: '/blogs/user',
+  GET_PUBLIC_USER_BLOGS: '/blogs/public/:userId',
+  GET_BY_ID: '/blog/:blogId',
+  GET_BY_SLUG: '/blog/slug/:slug',
+  DELETE: '/blog/delete/:blogId',
+  LIKE: '/blog/like/:blogId',
+  UNLIKE: '/blog/unlike/:blogId',
+  BLOG_LIKE_LIST: '/blog/likeList/:blogId',
+};

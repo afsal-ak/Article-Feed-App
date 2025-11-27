@@ -1,5 +1,6 @@
 import { Model, UpdateQuery, Document, SortOrder } from 'mongoose';
 import { PaginationInfo } from '@application/dtos/PaginationDto';
+
 export abstract class BaseRepository<T> {
   protected model: Model<T & Document>;
 
