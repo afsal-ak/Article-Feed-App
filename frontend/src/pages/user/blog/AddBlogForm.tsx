@@ -4,7 +4,7 @@ import { blogSchema, type BlogFormSchema } from '@/schemas/BlogSchema';
 import { useEffect, useState } from 'react';
 import { Button } from '@/components/Button';
 import { Input } from '@/components/ui/Input';
-import { Textarea } from '@/components/TextArea';
+import { Textarea } from '@/components/ui/textarea';
 import { Label } from '@/components/ui/Label';
 import { toast } from 'sonner';
 import ImageCropper from '@/components/ImageCropper';

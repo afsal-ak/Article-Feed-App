@@ -15,7 +15,6 @@ import 'swiper/css/navigation';
 import 'swiper/css/pagination';
 import 'swiper/css';
 import { Navigation, Pagination } from 'swiper/modules';
-import type { UserBasicInfo } from '@/types/UserBasicInfo';
 const BlogDetail = () => {
   const { slug } = useParams();
   const navigate = useNavigate();
@@ -24,9 +23,7 @@ const BlogDetail = () => {
   // const [savedPosts, setSavedPosts] = useState();
   const [blogData, setBlogData] = useState<IBlog | null>(null);
   const [likesCount, setLikesCount] = useState(0);
-  const [likedUsers, setLikedUsers] = useState<UserBasicInfo[]>([]);
-  const [isLikesModalOpen, setIsLikesModalOpen] = useState(false);
-
+ 
   useEffect(() => {
     const loadBlogDetail = async () => {
       if (!slug) return;
@@ -41,8 +38,7 @@ const BlogDetail = () => {
           console.log(response.blog._id, 'llllll');
 
           const likesResponse = await fetchBlogLikeList(response.blog._id);
-          setLikedUsers(likesResponse);
-          console.log(likesResponse, 'blog likes');
+           console.log(likesResponse, 'blog likes');
         }
       } catch (error: any) {
         console.error('Failed to fetch blog details', error);
@@ -94,15 +90,7 @@ const BlogDetail = () => {
     }
   };
 
-  //   function handleOptionSelect(value: string, _id: string, reportedType: IReportedType) {
-  //     console.log("Selected option:", value);
-  //     // Add your logic here based on value
-  //     if (value == 'report') {
-  //       setSelectedReport({ _id, reportedType })
-  //       setShowReportModal(true);
 
-  //     }
-  //   }
   return (
     <div className="min-h-screen bg-bg px-4 py-6">
       {blogData && (
@@ -189,12 +177,12 @@ const BlogDetail = () => {
             </div>
 
             {/* Likes */}
-            <div
+            {/* <div
               className="text-sm font-semibold text-darkText mb-2 cursor-pointer hover:underline"
               onClick={() => setIsLikesModalOpen(true)}
             >
               {formatNumber(likesCount)} likes
-            </div>
+            </div> */}
 
             {/* Content */}
             <div className="mb-3">

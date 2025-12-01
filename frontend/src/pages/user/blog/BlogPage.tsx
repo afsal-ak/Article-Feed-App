@@ -8,7 +8,6 @@ const BlogsPage = () => {
   const [blogs, setBlogs] = useState<IBlog[]>([]);
   const [searchParams, setSearchParams] = useSearchParams();
   const [totalPages, setTotalPages] = useState(1);
-  const [searchBlog, setSearchBlog] = useState('');
   const [loading, setLoading] = useState(false);
 
   const currentPage = parseInt(searchParams.get('page') || '1', 10);

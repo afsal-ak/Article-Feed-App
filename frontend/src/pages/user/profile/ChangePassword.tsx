@@ -45,7 +45,7 @@ const ChangePassword = () => {
     }
     setFormErrors({});
     try {
-      const response = await passwordChange(currentPassword, newPassword);
+      await passwordChange(currentPassword, newPassword);
       toast.success('password changed successfully');
       navigate('/profile');
     } catch (error: any) {

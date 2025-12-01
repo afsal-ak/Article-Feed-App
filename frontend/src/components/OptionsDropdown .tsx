@@ -34,10 +34,7 @@ export const OptionsDropdown = ({ options, onSelect }: OptionsDropdownProps) => 
 
   const toggleDropdown = () => setOpen((prev) => !prev);
 
-  const handleSelect = (value: string) => {
-    onSelect(value);
-    setOpen(false);
-  };
+ 
 
   return (
     <div className="relative inline-block text-left" ref={dropdownRef}>
