@@ -1,7 +1,7 @@
 import { NextFunction, Request, Response } from 'express';
 import jwt from 'jsonwebtoken';
-import { IUser } from '@domain/entities/IUser';
-import { UserModel } from '@infrastructure/models/User';
+import { IUser } from '../../domain/entities/IUser';
+import { UserModel } from '../../infrastructure/models/User';
 
 const JWT_ACCESS_SECRET = process.env.JWT_ACCESS_SECRET;
 

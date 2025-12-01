@@ -1,9 +1,9 @@
 
-import { IBlogRepository } from '@domain/repositories/IBlogRepository';
-import { IBlog } from '@domain/entities/IBlog';
-import { deleteImageFromCloudinary } from '@infrastructure/services/cloudinary/cloudinaryService';
-import { IBlogUseCases } from '@application/useCaseInterfaces/user/IBlogUseCases';
-import { UserBasicInfoDto } from '@application/dtos/UserBasicInfoDTO';
+import { IBlogRepository } from '../../../domain/repositories/IBlogRepository';
+import { IBlog } from '../../../domain/entities/IBlog';
+import { deleteImageFromCloudinary } from '../../../infrastructure/services/cloudinary/cloudinaryService';
+import { IBlogUseCases } from '../../../application/useCaseInterfaces/user/IBlogUseCases';
+import { UserBasicInfoDto } from '../../../application/dtos/UserBasicInfoDTO';
 
 export class BlogUseCases implements IBlogUseCases {
 

@@ -1,10 +1,10 @@
 
 import { NextFunction, Request, Response } from "express";
-import { BlockModel } from "@infrastructure/models/Block";
-import { BlogModel } from "@infrastructure/models/Blog";
- import { UserModel } from "@infrastructure/models/User";
-import { AppError } from "@shared/utils/AppError";
-import { HttpStatus } from "@constants/HttpStatus/HttpStatus";
+import { BlockModel } from "../../infrastructure/models/Block";
+import { BlogModel } from "../../infrastructure/models/Blog";
+ import { UserModel } from "../../infrastructure/models/User";
+import { AppError } from "../../shared/utils/AppError";
+import { HttpStatus } from "../../constants/HttpStatus/HttpStatus";
 
 export const checkBlockedMiddleware = async (
   req: Request,

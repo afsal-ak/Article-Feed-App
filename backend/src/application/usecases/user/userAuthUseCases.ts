@@ -1,11 +1,11 @@
 import { IUserRepository } from '../../../domain/repositories/IUserRepository';
-import { hashPassword, comparePassword } from '@shared/utils/hash';
+import { hashPassword, comparePassword } from '../../../shared/utils/hash';
 import { IUser } from '../../../domain/entities/IUser';
-import { generateAccessToken, generateRefreshToken, verifyAccessToken } from '@shared/utils/jwt';
-import { AppError } from '@shared/utils/AppError';
-import { IUserAuthUseCases } from '@application/useCaseInterfaces/user/IUserAuthUseCases';
-import { mapToUserDetailsDTO, UserDetailsDTO } from '@application/dtos/UserDTO';
-import { RegisterUserDTO } from '@application/dtos/UserAuthDTO';
+import { generateAccessToken, generateRefreshToken, verifyAccessToken } from '../../../shared/utils/jwt';
+import { AppError } from '../../../shared/utils/AppError';
+import { IUserAuthUseCases } from '../../../application/useCaseInterfaces/user/IUserAuthUseCases';
+import { mapToUserDetailsDTO, UserDetailsDTO } from '../../../application/dtos/UserDTO';
+import { RegisterUserDTO } from '../../../application/dtos/UserAuthDTO';
 
 export class UserAuthUsecases implements IUserAuthUseCases {
   constructor(private _userRepository: IUserRepository) {}

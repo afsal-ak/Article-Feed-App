@@ -1,8 +1,8 @@
 import { NextFunction, Request, Response } from 'express';
 import jwt from 'jsonwebtoken';
-import { IUser } from '@domain/entities/IUser';
-import { UserModel } from '@infrastructure/models/User';
-import { HttpStatus } from '@constants/HttpStatus/HttpStatus';
+import { IUser } from '../../domain/entities/IUser';
+import { UserModel } from '../../infrastructure/models/User';
+import { HttpStatus } from '../../constants/HttpStatus/HttpStatus';
 const JWT_ACCESS_SECRET = process.env.JWT_ACCESS_SECRET;
 
 export const userAuthMiddleware = async (

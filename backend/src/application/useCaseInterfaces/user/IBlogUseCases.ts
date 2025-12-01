@@ -1,5 +1,5 @@
-import { IBlog } from '@domain/entities/IBlog';
-import { UserBasicInfoDto } from '@application/dtos/UserBasicInfoDTO';
+import { IBlog } from '../../../domain/entities/IBlog';
+import { UserBasicInfoDto } from '../../../application/dtos/UserBasicInfoDTO';
 export interface IBlogUseCases {
   createBlog(userId: string, blogData: IBlog): Promise<IBlog>;
 

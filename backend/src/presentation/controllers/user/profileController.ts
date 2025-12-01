@@ -1,8 +1,8 @@
 import { Request, Response, NextFunction } from 'express';
-import { getUserIdFromRequest } from '@shared/utils/getUserIdFromRequest';
- import { HttpStatus } from 'constants/HttpStatus/HttpStatus';
- import { IProfileUseCases } from '@application/useCaseInterfaces/user/IProfileUseCases';
-import { UserDetailsDTO } from '@application/dtos/UserDTO';
+import { getUserIdFromRequest } from '../../../shared/utils/getUserIdFromRequest';
+ import { HttpStatus } from '../../../constants/HttpStatus/HttpStatus';
+ import { IProfileUseCases } from '../../../application/useCaseInterfaces/user/IProfileUseCases';
+import { UserDetailsDTO } from '../../../application/dtos/UserDTO';
 
 export class ProfileController {
   constructor(private _profileUseCases: IProfileUseCases) {}

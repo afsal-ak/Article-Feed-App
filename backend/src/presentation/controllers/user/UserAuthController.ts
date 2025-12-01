@@ -1,8 +1,8 @@
 import { NextFunction, Request, Response } from 'express';
-import { getUserIdFromRequest } from '@shared/utils/getUserIdFromRequest';
-import { HttpStatus } from 'constants/HttpStatus/HttpStatus';
-import { IUserAuthUseCases } from '@application/useCaseInterfaces/user/IUserAuthUseCases';
-import {  mapToLoginResponseDTO ,RegisterUserDTO} from '@application/dtos/UserAuthDTO';
+import { getUserIdFromRequest } from '../../../shared/utils/getUserIdFromRequest';
+import { HttpStatus } from '../../../constants/HttpStatus/HttpStatus';
+import { IUserAuthUseCases } from '../../../application/useCaseInterfaces/user/IUserAuthUseCases';
+import {  mapToLoginResponseDTO ,RegisterUserDTO} from '../../../application/dtos/UserAuthDTO';
 export class UserAuthController {
   constructor(private _userAuthUseCases: IUserAuthUseCases) { }
 

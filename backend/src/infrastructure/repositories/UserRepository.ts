@@ -1,9 +1,9 @@
-import { IRole, IUser } from '@domain/entities/IUser';
-import { UserModel } from '@infrastructure/models/User';
-import { IUserRepository } from '@domain/repositories/IUserRepository';
-import { AppError } from '@shared/utils/AppError';
-import { IPaginatedResult } from '@domain/entities/IPaginatedResult';
-import { HttpStatus } from '@constants/HttpStatus/HttpStatus';
+import { IRole, IUser } from '../../domain/entities/IUser';
+import { UserModel } from '../../infrastructure/models/User';
+import { IUserRepository } from '../../domain/repositories/IUserRepository';
+import { AppError } from '../../shared/utils/AppError';
+import { IPaginatedResult } from '../../domain/entities/IPaginatedResult';
+import { HttpStatus } from '../../constants/HttpStatus/HttpStatus';
 
 export class UserRepository implements IUserRepository {
 

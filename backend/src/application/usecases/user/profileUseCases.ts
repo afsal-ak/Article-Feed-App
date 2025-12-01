@@ -1,9 +1,9 @@
-import { HttpStatus } from '@constants/HttpStatus/HttpStatus';
-import { IUser } from '@domain/entities/IUser';
- import { AppError } from '@shared/utils/AppError';
-import { IProfileUseCases } from '@application/useCaseInterfaces/user/IProfileUseCases';
-import { IUserRepository } from '@domain/repositories/IUserRepository';
-import { mapToUserDetailsDTO, UserDetailsDTO } from '@application/dtos/UserDTO';
+import { HttpStatus } from '../../../constants/HttpStatus/HttpStatus';
+import { IUser } from '../../../domain/entities/IUser';
+ import { AppError } from '../../../shared/utils/AppError';
+import { IProfileUseCases } from '../../../application/useCaseInterfaces/user/IProfileUseCases';
+import { IUserRepository } from '../../../domain/repositories/IUserRepository';
+import { mapToUserDetailsDTO, UserDetailsDTO } from '../../../application/dtos/UserDTO';
 
 
 export class ProfileUseCases implements IProfileUseCases {

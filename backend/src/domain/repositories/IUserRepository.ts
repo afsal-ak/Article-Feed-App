@@ -1,6 +1,6 @@
 import { IUser,IRole } from '../entities/IUser';
  
-import { IPaginatedResult } from '@domain/entities/IPaginatedResult';
+import { IPaginatedResult } from '../../domain/entities/IPaginatedResult';
 export interface IUserRepository {
   findByEmail(email: string): Promise<IUser | null>;
   findByUsername(username: string): Promise<IUser | null>;

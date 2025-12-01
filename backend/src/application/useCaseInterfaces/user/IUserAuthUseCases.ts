@@ -1,5 +1,5 @@
-import { RegisterUserDTO } from '@application/dtos/UserAuthDTO';
-import { UserDetailsDTO } from '@application/dtos/UserDTO';
+import { RegisterUserDTO } from '../../../application/dtos/UserAuthDTO';
+import { UserDetailsDTO } from '../../../application/dtos/UserDTO';
  
 export interface IUserAuthUseCases {
     register(userData: RegisterUserDTO): Promise<UserDetailsDTO>  

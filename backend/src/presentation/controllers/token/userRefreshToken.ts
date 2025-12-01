@@ -1,6 +1,6 @@
 import { NextFunction, Request, Response } from 'express';
-import { verifyRefreshToken, generateAccessToken } from '@shared/utils/jwt';
-import { HttpStatus } from '@constants/HttpStatus/HttpStatus';
+import { verifyRefreshToken, generateAccessToken } from '../../../shared/utils/jwt';
+import { HttpStatus } from '../../../constants/HttpStatus/HttpStatus';
 
 export const userRefreshToken = async (req: Request, res: Response,next:NextFunction): Promise<void> => {
   try {

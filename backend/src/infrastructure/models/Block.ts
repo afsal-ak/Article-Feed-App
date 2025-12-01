@@ -1,5 +1,5 @@
 import mongoose, { Schema, Document, Model } from "mongoose";
-import { IBlock } from "@domain/entities/IBlock";
+import { IBlock } from "../../domain/entities/IBlock";
 
 type BlockDocument=IBlock&Document
 

@@ -2,12 +2,12 @@ import express from "express";
 import mongoose from "mongoose";
 import dotenv from "dotenv";
 dotenv.config();
-import userRoutes from "@presentation/routes/userRoutes";
-import { errorHandler } from "@presentation/middlewares/errorHandler";
+import userRoutes from "./presentation/routes/userRoutes";
+import { errorHandler } from "./presentation/middlewares/errorHandler";
 import bodyParser from "body-parser";
 import cookieParser from "cookie-parser";
 import cors from "cors";
-import morganLogger from "@presentation/middlewares/logger";
+import morganLogger from "./presentation/middlewares/logger";
 
 const app = express();
 const PORT = process.env.PORT || 4001;

@@ -1,4 +1,4 @@
-import { IUser } from "@domain/entities/IUser";
+import { IUser } from "../../domain/entities/IUser";
 
 export interface RegisterUserDTO {
   firstName: string;
