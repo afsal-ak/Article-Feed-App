@@ -10,11 +10,11 @@ export interface IBlog {
     url: string;
     public_id: string;
   };
+  category: string;
   images?: { url: string; public_id: string }[];
   tags?: string[];
   author: Types.ObjectId | string;
-  //userId: Types.ObjectId | string;
-  //isPublished?: boolean;
+   
   likes?: (Types.ObjectId | string|IUser)[];
   status: 'draft' | 'published' | 'archived';
   isBlocked?: boolean;

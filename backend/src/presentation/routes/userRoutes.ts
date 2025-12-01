@@ -62,7 +62,7 @@ router.post(
   blogController.createBlog
 );
 router.put(BLOG_ROUTES.EDIT, userAuthMiddleware, upload.array('images'), blogController.editBlog);
-router.get(BLOG_ROUTES.GET_ALL, blogController.getAllPublishedBlogs);
+router.get(BLOG_ROUTES.GET_ALL, userAuthMiddleware,blogController.getAllPublishedBlogs);
 router.get(BLOG_ROUTES.GET_USER_BLOGS, userAuthMiddleware, blogController.getBlogByUser);
 router.get(
   BLOG_ROUTES.GET_PUBLIC_USER_BLOGS,
@@ -74,7 +74,17 @@ router.get(BLOG_ROUTES.GET_BY_SLUG, optionalAuthMiddleware,checkBlockedMiddlewar
 router.delete(BLOG_ROUTES.DELETE, userAuthMiddleware, blogController.deleteBlog);
 router.patch(BLOG_ROUTES.LIKE, userAuthMiddleware, blogController.likeBlog);
 router.patch(BLOG_ROUTES.UNLIKE, userAuthMiddleware, blogController.unLikeBlog);
-router.get(BLOG_ROUTES.BLOG_LIKE_LIST, userAuthMiddleware, blogController.getBlogLikeList);
 
+ 
+router.patch(
+  BLOG_ROUTES.BLOCK,
+  userAuthMiddleware,
+  blogController.blockArticle
+);
+router.patch(
+   BLOG_ROUTES.UNBLOCK,
+  userAuthMiddleware,
+  blogController.unblockArticle
+);
 
 export default router;

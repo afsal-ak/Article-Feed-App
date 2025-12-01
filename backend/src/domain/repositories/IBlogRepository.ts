@@ -4,7 +4,7 @@ import { PaginationInfo } from '@application/dtos/PaginationDto';
 import { UserBasicInfoDto } from '@application/dtos/UserBasicInfoDTO';
 import { IUser } from '@domain/entities/IUser';
 import { IBaseRepository } from './IBaseRepository';
-export interface IBlogRepository extends IBaseRepository<IBlog>{
+export interface IBlogRepository extends IBaseRepository<IBlog> {
   createBlog(userId: string, blogData: IBlog): Promise<IBlog>;
   editBlog(
     id: string,
@@ -16,10 +16,11 @@ export interface IBlogRepository extends IBaseRepository<IBlog>{
   getAllBlog(
     page: number,
     limit: number,
-    filters?:IFilter
+    filters?: IFilter
   ): Promise<{ blogs: IBlog[]; pagination: PaginationInfo }>;
 
   getAllPublishedBlogs(
+    userId: string,
     page: number,
     limit: number,
     filters?: {
@@ -43,10 +44,14 @@ export interface IBlogRepository extends IBaseRepository<IBlog>{
   unLikeBlog(blogId: string, userId: string): Promise<IBlog | null>;
   blockBlog(blogId: string, block: boolean): Promise<void>;
 
- getLikedList(blogId: string): Promise<UserBasicInfoDto[] | null>
+  getLikedList(blogId: string): Promise<UserBasicInfoDto[] | null>
   getPublicBlogsByUser(
     author: string,
     page: number,
     limit: number
   ): Promise<{ blogs: IBlog[]; totalBlogs: number }>;
+
+  blockArticle(userId: string, articleId: string): Promise<boolean>
+
+  unblockArticle(userId: string, articleId: string): Promise<boolean>
 }

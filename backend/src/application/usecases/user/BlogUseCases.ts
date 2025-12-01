@@ -49,6 +49,7 @@ export class BlogUseCases implements IBlogUseCases {
 
  
   async getAllPublishedBlogs(
+    userId:string,
     page: number,
     limit: number,
     filters?: {
@@ -58,7 +59,7 @@ export class BlogUseCases implements IBlogUseCases {
       endDate?: string;
     }
   ) {
-    return await this._blogRepo.getAllPublishedBlogs(page, limit, filters);
+    return await this._blogRepo.getAllPublishedBlogs(userId,page, limit, filters);
   }
 
   async getBySlug(slug: string): Promise<IBlog | null> {
@@ -92,4 +93,14 @@ export class BlogUseCases implements IBlogUseCases {
   async getPublicBlogsByUser(userId: string, page: number, limit: number) {
     return await this._blogRepo.getPublicBlogsByUser(userId, page, limit);
   }
+
+  async blockArticle(userId: string, articleId: string):Promise<boolean> {
+    return   await this._blogRepo.blockArticle(userId, articleId);
+     
+  }
+
+  async unblockArticle(userId: string, articleId: string):Promise<boolean> {
+    return   await this._blogRepo.unblockArticle(userId, articleId);
+   
+}
 }

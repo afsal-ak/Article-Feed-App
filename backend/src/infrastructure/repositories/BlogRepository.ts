@@ -3,13 +3,16 @@ import { IFilter } from '@domain/entities/IFilter';
 
 import { IBlogRepository } from '@domain/repositories/IBlogRepository';
 import { BlogModel } from '@infrastructure/models/Blog';
-import { SortOrder } from 'mongoose';
+import mongoose, { SortOrder } from 'mongoose';
 //import { CommentModel } from "@infrastructure/models/Comment";
 import { FilterQuery } from 'mongoose';
 import { PaginationInfo } from '@application/dtos/PaginationDto';
 import { IUser } from '@domain/entities/IUser';
 import { UserBasicInfoDto } from '@application/dtos/UserBasicInfoDTO';
 import { BaseRepository } from '@infrastructure/repositories/BaseRepository';
+import { UserModel } from '@infrastructure/models/User';
+import { HttpStatus } from '@constants/HttpStatus/HttpStatus';
+import { AppError } from '@shared/utils/AppError';
 
 export class BlogRepository extends BaseRepository<IBlog> implements IBlogRepository {
   constructor() {
@@ -171,51 +174,144 @@ export class BlogRepository extends BaseRepository<IBlog> implements IBlogReposi
 
     return { blogs, pagination };
   }
+async getAllPublishedBlogs(
+  userId: string,
+  page: number,
+  limit: number,
+  filters?: {
+    search?: string;
+    tags?: string[];
+    startDate?: string;
+    endDate?: string;
+  }
+): Promise<{ blogs: IBlog[]; totalBlogs: number }> {
+  
+  const skip = (page - 1) * limit;
 
-  async getAllPublishedBlogs(
-    page: number,
-    limit: number,
-    filters?: {
-      search?: string;
-      tags?: string[];
-      startDate?: string;
-      endDate?: string;
-    }
-  ): Promise<{ blogs: IBlog[]; totalBlogs: number }> {
-    const skip = (page - 1) * limit;
-    const query: FilterQuery<IBlog> = {
-      status: 'published',
-      isBlocked: false,
-    };
+  // Get user preferences and blocked articles
+  const user = await UserModel.findById(userId).lean();
+  if (!user) throw new Error("User not found");
 
-    if (filters?.search) {
-      query.title = { $regex: filters.search, $options: 'i' };
-    }
+  const userPreferences = user.preferences || [];
+  const blockedArticles = user.blockedArticles || [];
 
-    if (filters?.tags?.length) {
-      query.tags = { $in: filters.tags };
-    }
+  const query: FilterQuery<IBlog> = {
+    status: "published",
+    isBlocked: false,
 
-    if (filters?.startDate || filters?.endDate) {
-      query.createdAt = {};
-      if (filters.startDate) query.createdAt.$gte = new Date(filters.startDate);
-      if (filters.endDate) query.createdAt.$lte = new Date(filters.endDate);
-    }
+    // Apply user rules
+    category: { $in: userPreferences },
+    _id: { $nin: blockedArticles },
+  };
 
-    const [blogs, totalBlogs] = await Promise.all([
-      BlogModel.find(query)
-        .populate({
-          path: 'author',
-          select: 'firstName email profileImage.url',
-        })
-        .skip(skip).limit(limit)
-        .sort({ createdAt: -1 })
-        .lean(),
-      BlogModel.countDocuments(query),
-    ]);
-    return { blogs, totalBlogs };
+  // SEARCH FILTER
+  if (filters?.search) {
+    query.title = { $regex: filters.search, $options: "i" };
   }
 
+  // TAGS FILTER
+  if (filters?.tags?.length) {
+    query.tags = { $in: filters.tags };
+  }
+
+  // DATE FILTER
+  if (filters?.startDate || filters?.endDate) {
+    query.createdAt = {};
+    if (filters.startDate) query.createdAt.$gte = new Date(filters.startDate);
+    if (filters.endDate) query.createdAt.$lte = new Date(filters.endDate);
+  }
+
+  const [blogs, totalBlogs] = await Promise.all([
+    BlogModel.find(query)
+      .populate({
+        path: "author",
+        select: "firstName email profileImage.url",
+      })
+      .skip(skip)
+      .limit(limit)
+      .sort({ createdAt: -1 })
+      .lean(),
+    BlogModel.countDocuments(query),
+  ]);
+
+  return { blogs, totalBlogs };
+}
+
+  // async getAllPublishedBlogs(
+  //   page: number,
+  //   limit: number,
+  //   filters?: {
+  //     search?: string;
+  //     tags?: string[];
+  //     startDate?: string;
+  //     endDate?: string;
+  //   }
+  // ): Promise<{ blogs: IBlog[]; totalBlogs: number }> {
+  //   const skip = (page - 1) * limit;
+  //   const query: FilterQuery<IBlog> = {
+  //     status: 'published',
+  //     isBlocked: false,
+  //   };
+
+  //   if (filters?.search) {
+  //     query.title = { $regex: filters.search, $options: 'i' };
+  //   }
+
+  //   if (filters?.tags?.length) {
+  //     query.tags = { $in: filters.tags };
+  //   }
+
+  //   if (filters?.startDate || filters?.endDate) {
+  //     query.createdAt = {};
+  //     if (filters.startDate) query.createdAt.$gte = new Date(filters.startDate);
+  //     if (filters.endDate) query.createdAt.$lte = new Date(filters.endDate);
+  //   }
+
+  //   const [blogs, totalBlogs] = await Promise.all([
+  //     BlogModel.find(query)
+  //       .populate({
+  //         path: 'author',
+  //         select: 'firstName email profileImage.url',
+  //       })
+  //       .skip(skip).limit(limit)
+  //       .sort({ createdAt: -1 })
+  //       .lean(),
+  //     BlogModel.countDocuments(query),
+  //   ]);
+  //   return { blogs, totalBlogs };
+  // }
+    async blockArticle(userId: string, articleId: string): Promise<boolean> {
+    const user = await UserModel.findById(userId);
+    if (!user) throw new Error("User not found");
+
+    const articleObjectId = new mongoose.Types.ObjectId(articleId);
+
+    // Prevent duplicate blocks
+    if (user?.blockedArticles?.some(id => id.toString() === articleObjectId.toString())) {
+      return false; // already blocked
+    }
+
+    user?.blockedArticles?.push(articleObjectId);
+    await user.save();
+    return true;
+  }
+
+  async unblockArticle(userId: string, articleId: string): Promise<boolean> {
+    const user = await UserModel.findById(userId);
+    if (!user) throw new Error("User not found");
+
+    const articleObjectId = new mongoose.Types.ObjectId(articleId);
+
+    const before = user?.blockedArticles!.length;
+
+    user.blockedArticles = user?.blockedArticles!.filter(
+      id => id.toString() !== articleObjectId.toString()
+    );
+
+    await user.save();
+
+    return user.blockedArticles.length < before; // true if removed
+  }
   async getBySlug(slug: string): Promise<IBlog | null> {
     return await BlogModel.findOne({ slug })
       .populate({
@@ -291,4 +387,6 @@ export class BlogRepository extends BaseRepository<IBlog> implements IBlogReposi
 
     return { blogs, totalBlogs };
   }
+
+  
 }

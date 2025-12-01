@@ -32,6 +32,20 @@ const BlogSchema = new Schema<BlogDocument>(
       type: Boolean,
       default: false,
     },
+    category: {
+      type: String,
+      required: true,  
+      enum: [
+        'Sports',
+        'Politics',
+        'Technology',
+        'Entertainment',
+        'Education',
+        'Space',
+        'Health',
+        'Lifestyle',
+      ],
+    },
     likes: [{ type: Schema.Types.ObjectId, ref: 'Users' }],
   },
   { timestamps: true }

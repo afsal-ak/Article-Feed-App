@@ -44,6 +44,7 @@ async register(userData: RegisterUserDTO): Promise<UserDetailsDTO> {
     phone,
     email,
     dob,
+    
     password: hashedPassword,
     preferences,
   };

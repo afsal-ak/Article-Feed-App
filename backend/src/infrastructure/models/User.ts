@@ -40,6 +40,11 @@ const UserSchema = new Schema<IUserDocument>(
       type: [String], // sports, politics, space etc.
       default: [],
     },
+    blockedArticles: {
+      type: [mongoose.Schema.Types.ObjectId],
+      ref: "Blog",
+      default: [],
+    },
     role: {
       type: String,
       enum: ["user", "admin"],

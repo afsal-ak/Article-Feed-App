@@ -22,6 +22,7 @@ export interface IBlogUseCases {
   }>;
 
   getAllPublishedBlogs(
+    userId:string,
     page: number,
     limit: number,
     filters?: {
@@ -57,4 +58,9 @@ export interface IBlogUseCases {
     blogs: IBlog[];
     totalBlogs: number;
   }>;
+
+     blockArticle(userId: string, articleId: string):Promise<boolean>  
+
+    unblockArticle(userId: string, articleId: string):Promise<boolean>
+    
 }
