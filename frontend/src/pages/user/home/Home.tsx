@@ -14,18 +14,7 @@ const Home = () => {
             writers. Stay updated, learn new perspectives, and express yourself!
           </p>
 
-          {/* <div className="flex justify-center gap-4">
-            <Link to="/login">
-              <Button className="bg-orange hover:bg-orange-dark text-white px-6 py-2 rounded">
-                Login
-              </Button>
-            </Link>
-            <Link to="/signup">
-              <Button variant="outline" className="border-orange text-orange px-6 py-2 rounded hover:bg-orange hover:text-white">
-                Sign Up
-              </Button>
-            </Link>
-          </div> */}
+          
         </div>
       </section>
 
