@@ -15,7 +15,7 @@ import 'swiper/css/navigation';
 import 'swiper/css/pagination';
 import 'swiper/css';
 import { Navigation, Pagination } from 'swiper/modules';
-const BlogDetail = () => {
+ const BlogDetail = () => {
   const { slug } = useParams();
   const navigate = useNavigate();
   //console.log(slug, 'from param');
@@ -177,12 +177,11 @@ const BlogDetail = () => {
             </div>
 
             {/* Likes */}
-            {/* <div
+            <div
               className="text-sm font-semibold text-darkText mb-2 cursor-pointer hover:underline"
-              onClick={() => setIsLikesModalOpen(true)}
-            >
+             >
               {formatNumber(likesCount)} likes
-            </div> */}
+            </div>
 
             {/* Content */}
             <div className="mb-3">
