@@ -12,8 +12,10 @@ export const editBlogSchema = z.object({
   tags: z.array(z.string().transform((tag) => tag.trim())).optional(),
   status: z.enum(['draft', 'published', 'archived']).optional(),
 
- 
-
+   category: z.enum(
+     ['Technology', 'Sports', 'Politics', 'Travel', 'Education', 'Food'],
+     { required_error: 'Category is required' }
+   ),
   existingImages: z
     .array(
       z.object({

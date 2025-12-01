@@ -7,7 +7,7 @@ import { useState, useEffect, useCallback } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import { Button } from '@/components/Button';
 import { Input } from '@/components/ui/Input';
-import { Textarea } from '@/components/TextArea';
+import { Textarea } from '@/components/Textarea';
 import { Label } from '@/components/ui/Label';
 import { toast } from 'sonner';
 import ImageCropper from '@/components/ImageCropper';
@@ -67,6 +67,7 @@ const EditBlogForm = () => {
         setValue('content', res.content);
         setValue('status', res.status);
         setValue('tags', res.tags || []);
+        setValue('category', res.category || []);
         setExistingImages(res.images || []);
       } catch {
         toast.error('Failed to load blog');
@@ -115,6 +116,7 @@ const EditBlogForm = () => {
       formData.append('content', data.content.trim());
       formData.append('status', data.status!);
       formData.append('tags', data.tags?.join(',') || '');
+    formData.append('category', data.category);
 
       // append NEW images (hook)
       croppedImages.forEach((file) => {
@@ -201,7 +203,21 @@ const EditBlogForm = () => {
             </select>
             {errors.status && <p className="text-red-500 text-sm">{errors.status.message}</p>}
           </div>
+<div>
+  <Label>Category</Label>
+  <select {...register('category')} className="p-2 border rounded w-full">
+    <option value="Technology">Technology</option>
+    <option value="Sports">Sports</option>
+    <option value="Politics">Politics</option>
+    <option value="Travel">Travel</option>
+    <option value="Education">Education</option>
+    <option value="Food">Food</option>
+  </select>
 
+  {errors.category && (
+    <p className="text-red-500 text-sm">{errors.category.message}</p>
+  )}
+</div>
           <div>
             <Label>Upload Images (Total Max {MAX_IMAGES})</Label>
             <input

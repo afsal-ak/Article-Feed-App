@@ -1,10 +1,11 @@
 import { useEffect, useState } from 'react';
-import { Heart, Verified,X } from 'lucide-react';
+import { Heart, Slash, Verified,X } from 'lucide-react';
 import {
   fetchBlogBySlug,
   handleLikeBlog,
   handleUnLikeBlog,
-  fetchBlogLikeList
+  fetchBlogLikeList,
+  blockBlogByUser
 } from '@/services/user/blogService';
 import { useNavigate, useParams } from 'react-router-dom';
 import { toast } from 'sonner';
@@ -84,12 +85,18 @@ const BlogDetail = () => {
   const handleNavigateUseProfile = (username: string) => {
     navigate(`/profile/${username}`)
   }
-  const options = [
-    { label: "Report", value: "report", className: "text-red-500" },
-    // { label: "Delete", value: "delete" },
-    // { label: "Block User", value: "block" },
-  ];
+ const handleBlockBlog = async () => {
+    if (!blogData?._id) return;
 
+    try {
+      await blockBlogByUser(blogData._id); // API call to block blog
+      toast.success('Blog blocked successfully');
+      navigate('/'); // redirect to home after block
+    } catch (err: any) {
+      console.error('Failed to block blog', err);
+      toast.error(err?.response?.data?.message || 'Failed to block blog');
+    }
+  };
 
 //   function handleOptionSelect(value: string, _id: string, reportedType: IReportedType) {
 //     console.log("Selected option:", value);
@@ -128,9 +135,18 @@ const BlogDetail = () => {
                 )} */}
               </div>
             </div>
-            {/* <OptionsDropdown options={options} onSelect={(value) => handleOptionSelect(value, blogData?._id!, 'blog')} /> */}
+             <div className="flex items-center space-x-2">
+              <button
+                onClick={handleBlockBlog}
+                className="flex items-center text-red-500 border border-red-500 px-3 py-1 rounded hover:bg-red-50 transition"
+              >
+                <Slash className="w-4 h-4 mr-1" />
+                Block Blog
+              </button>
+            </div>
           </div>
-
+            {/* <OptionsDropdown options={options} onSelect={(value) => handleOptionSelect(value, blogData?._id!, 'blog')} /> */}
+ 
           {/* Images */}
           {blogData.images?.length! > 0 && (
             <Swiper
@@ -182,29 +198,7 @@ const BlogDetail = () => {
               {formatNumber(likesCount)} likes
             </div>
 
-            {/* <UserList
-              title="Liked by"
-              users={likedUsers}
-              isOpen={isLikesModalOpen}
-              onClose={() => setIsLikesModalOpen(false)}
-            /> */}
-            {/* {showCommentModal && (
-  <Modal onClose={() => setShowCommentModal(false)}>
-    <div className="w-full max-w-2xl bg-white rounded-xl shadow-lg overflow-hidden">
-      <div className="flex justify-between items-center p-3 border-b">
-        <h2 className="text-lg font-semibold">Comments</h2>
-        <button
-          onClick={() => setShowCommentModal(false)}
-          className="text-gray-500 hover:text-gray-700"
-        >
-          ✕
-        </button>
-      </div>
-      
-
-    </div>
-  </Modal>
-)} */}
+           
 
             {/* Content */}
             <div className="mb-3">

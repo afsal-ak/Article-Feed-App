@@ -17,8 +17,26 @@ export const fetchBlogById = async (blogId: string) => {
   console.log(response, 'from servoce');
   return response.data;
 };
+ export const blockBlogByUser = async (articleId: string) => {
+  try {
+    const response = await api.patch(`/user/blog/block/${articleId}`);
+    return response.data;  
+  } catch (err: any) {
+    console.error('Failed to block blog:', err);
+    throw err.response?.data || err;
+  }
+};
 
-export const handleBlogCreation = async (formData: FormData) => {
+ export const unblockBlogByUser = async (articleId: string) => {
+  try {
+    const response = await api.patch(`/user/blog/unblock/${articleId}`);
+    return response.data; 
+  } catch (err: any) {
+    console.error('Failed to unblock blog:', err);
+    throw err.response?.data || err;
+  }
+};
+ export const handleBlogCreation = async (formData: FormData) => {
   const response = await api.post(`/user/blog/create`, formData, {
     headers: {
       'Content-Type': 'multipart/form-data',

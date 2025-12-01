@@ -7,11 +7,14 @@ import UserBlogsPage from '@/pages/user/blog/UserBlogsPage';
 import AddBlogForm from '@/pages/user/blog/AddBlogForm';
 import EditBlogForm from '@/pages/user/blog/EditBlogForm';
 import UserBlogDetail from '@/pages/user/blog/UserBlogDetail';
+import BlogDetail from '@/pages/user/blog/BlogDetail';
+import BlogsPage from '@/pages/user/blog/BlogPage';
  const ProtectedRoutes = (
 
   <Route element={<UserProtectedRoutes />}>
     <Route path="/home" element={<Home />} />
-
+<Route path="/blog" element={<BlogsPage />} />
+    <Route path="/blog/:slug" element={<BlogDetail />} />
 
      <Route path="/profile" element={<EditProfile />} />
 

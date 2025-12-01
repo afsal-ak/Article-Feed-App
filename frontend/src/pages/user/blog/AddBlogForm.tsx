@@ -4,7 +4,7 @@ import { blogSchema, type BlogFormSchema } from '@/schemas/BlogSchema';
 import { useEffect, useState } from 'react';
 import { Button } from '@/components/Button';
 import { Input } from '@/components/ui/Input';
-import { Textarea } from '@/components/TextArea';
+import { Textarea } from '@/components/Textarea';
 import { Label } from '@/components/ui/Label';
 import { toast } from 'sonner';
 import ImageCropper from '@/components/ImageCropper';
@@ -41,8 +41,10 @@ const AddBlogForm = () => {
       content: '',
       tags: [],
       images: [],
+      category: 'Sports',
       status: 'draft',
     },
+
   });
 
   // keep RHF images in sync with hook state
@@ -58,6 +60,8 @@ const AddBlogForm = () => {
       formData.append('title', data.title.trim());
       formData.append('content', data.content.trim());
       formData.append('status', data.status!);
+      formData.append('category', data.category);
+
       data.tags!.forEach((tag) => formData.append('tags', tag.trim()));
       croppedImages.forEach((file) => formData.append('images', file));
 
@@ -130,6 +134,20 @@ const AddBlogForm = () => {
             </select>
             {errors.status && <p className="text-red-500 text-sm">{errors.status.message}</p>}
           </div>
+<div>
+  <Label>Category</Label>
+  <select {...register('category')} className="p-2 border rounded w-full">
+    <option value="Technology">Technology</option>
+    <option value="Sports">Sports</option>
+    <option value="Politics">Politics</option>
+    <option value="Travel">Travel</option>
+    <option value="Education">Education</option>
+    <option value="Food">Food</option>
+  </select>
+  {errors.category && (
+    <p className="text-red-500 text-sm">{errors.category.message}</p>
+  )}
+</div>
 
           <div>
             <Label>Upload Images (Max 4)</Label>

@@ -22,6 +22,7 @@ export interface IBlog {
     };
     firstName:string
   };
+  category:string;
   isBlocked?: boolean;
   createdAt?: Date;
   updatedAt?: Date;

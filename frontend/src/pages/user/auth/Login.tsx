@@ -48,7 +48,7 @@ import type { AppDispatch, RootState } from '@/redux/store';
         {/* Left Side */}
         <div className="hidden md:flex md:w-1/2 bg-orange items-center justify-center p-8">
           <div className="text-center text-white">
-            <h2 className="text-3xl font-bold mb-4">Welcome Back to Chat App</h2>
+            <h2 className="text-3xl font-bold mb-4">Welcome Back to Article Feed App</h2>
             <p className="text-base leading-relaxed">
               Discover unforgettable journeys, explore breathtaking destinations, and turn your
               travel dreams into reality. Your next adventure starts here!
@@ -65,7 +65,7 @@ import type { AppDispatch, RootState } from '@/redux/store';
               handleSubmit();
             }}
           >
-            <h2 className="text-2xl font-bold text-orange mb-6 text-center">Login to Chat App</h2>
+            <h2 className="text-2xl font-bold text-orange mb-6 text-center">Login to Article Feed App</h2>
 
             {(localError || error) && (
               <p className="text-sm text-red-500 mb-4 text-center">{localError || error}</p>
@@ -95,11 +95,7 @@ import type { AppDispatch, RootState } from '@/redux/store';
                 className="w-full border border-border px-4 py-2 rounded focus:outline-none focus:ring-2 focus:ring-orange"
                 placeholder="Enter your password"
               />
-              <div className="mb-6 text-right">
-                <Link to="/forgot-password" className="text-sm text-orange hover:underline">
-                  Forgot your password?
-                </Link>
-              </div>
+               
             </div>
 
             <button
