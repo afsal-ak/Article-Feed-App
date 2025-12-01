@@ -1,8 +1,6 @@
-
-
 export interface UserBasicInfo {
-  _id:  string;
+  _id: string;
   fullName?: string;
   email?: string;
-  profileImage?:string
+  profileImage?: string;
 }

@@ -1,17 +1,15 @@
-import { useEffect, useState } from "react";
-import { Button } from "../ui/button";
-import { Link, useNavigate } from "react-router-dom";
-import { Menu, User, X } from "lucide-react";
-import { useDispatch, useSelector } from "react-redux";
-import { logoutUser } from "@/redux/slices/userAuthSlice";
-import type { AppDispatch, RootState } from "@/redux/store";
-import { toast } from "sonner";
+import { useEffect, useState } from 'react';
+import { Button } from '../ui/button';
+import { Link } from 'react-router-dom';
+import { Menu, User, X } from 'lucide-react';
+import { useDispatch, useSelector } from 'react-redux';
+import { logoutUser } from '@/redux/slices/userAuthSlice';
+import type { AppDispatch, RootState } from '@/redux/store';
+import { toast } from 'sonner';
 
 const Navbar = () => {
-   const dispatch = useDispatch<AppDispatch>();
-  const { isAuthenticated, accessToken, user } = useSelector(
-    (state: RootState) => state.userAuth
-  );
+  const dispatch = useDispatch<AppDispatch>();
+  const { isAuthenticated, accessToken, user } = useSelector((state: RootState) => state.userAuth);
 
   useEffect(() => {
     if (!accessToken) {
@@ -19,14 +17,11 @@ const Navbar = () => {
     }
   }, []);
 
- 
-
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
 
   return (
     <header className="bg-background border-b shadow-sm sticky top-0 z-50">
       <div className="container mx-auto px-4 py-4 flex items-center justify-between">
-
         {/* Logo */}
         <Link to="/" className="text-2xl font-bold">
           <span className="text-orange">Article Feed</span>
@@ -34,7 +29,6 @@ const Navbar = () => {
 
         {/* Desktop Navigation */}
         <nav className="hidden md:flex items-center space-x-8">
-
           {/* Always show home */}
           <Link to="/" className="hover:text-orange transition">
             Home
@@ -60,7 +54,6 @@ const Navbar = () => {
 
         {/* Right Side */}
         <div className="flex items-center space-x-4">
-
           {/* If authenticated → show profile icon + logout */}
           {isAuthenticated ? (
             <div className="relative group hidden sm:flex">
@@ -71,17 +64,14 @@ const Navbar = () => {
 
               {/* Dropdown */}
               <div className="absolute right-0 top-full mt-2 w-44 bg-white rounded-md border shadow-md opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all">
-                <Link
-                  to="/profile"
-                  className="block px-4 py-2 hover:bg-gray-100"
-                >
+                <Link to="/profile" className="block px-4 py-2 hover:bg-gray-100">
                   My Profile
                 </Link>
 
                 <button
                   onClick={() => {
                     dispatch(logoutUser());
-                    toast.success("Logged out");
+                    toast.success('Logged out');
                   }}
                   className="w-full text-left px-4 py-2 text-red-500 hover:bg-red-100"
                 >
@@ -101,9 +91,7 @@ const Navbar = () => {
                 </Button>
               </Link>
               <Link to="/signup">
-                <Button className="bg-orange text-white hover:bg-orange-dark">
-                  Sign Up
-                </Button>
+                <Button className="bg-orange text-white hover:bg-orange-dark">Sign Up</Button>
               </Link>
             </div>
           )}
@@ -123,7 +111,6 @@ const Navbar = () => {
       {/* Mobile Menu */}
       {isMobileMenuOpen && (
         <div className="md:hidden px-4 pb-4 space-y-3">
-
           {/* Home always shown */}
           <Link
             to="/"
@@ -162,7 +149,7 @@ const Navbar = () => {
               <button
                 onClick={() => {
                   dispatch(logoutUser());
-                  toast.success("Logged out");
+                  toast.success('Logged out');
                   setIsMobileMenuOpen(false);
                 }}
                 className="block text-red-500 font-semibold"
@@ -211,7 +198,6 @@ export default Navbar;
 //     (state: RootState) => state.userAuth
 //   );
 
-  
 // useEffect(() => {
 //     if (!accessToken) {
 //       dispatch(logoutUser());
@@ -219,7 +205,7 @@ export default Navbar;
 //   }, []);
 
 //   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
- 
+
 //   return (
 //     <header className="bg-background shadow-sm border-b sticky top-0 z-50">
 //       <div className="container mx-auto px-4 py-4">
@@ -250,11 +236,9 @@ export default Navbar;
 //           {/* Right - Icons & Auth */}
 //           <div className="flex items-center space-x-4">
 
-
 //             {isAuthenticated ? (
 //               <div className="relative hidden sm:flex items-center group">
 //                 {/* Profile Dropdown */}
-                 
 
 //                 <div className="absolute top-full right-0 mt-2 w-44 bg-white shadow-md rounded-md border opacity-0 group-hover:opacity-100 group-hover:visible invisible transition-all duration-200 z-50">
 //                   <Link
@@ -263,7 +247,7 @@ export default Navbar;
 //                   >
 //                     My Profile
 //                   </Link>
-                 
+
 //                   <button
 //                     onClick={() => {
 //                       dispatch(logoutUser());
@@ -316,11 +300,7 @@ export default Navbar;
 //             >
 //               Home
 //             </Link>
-            
-             
-            
-            
-            
+
 //             <Link
 //               to="/profile"
 //               className="block text-foreground hover:text-orange"

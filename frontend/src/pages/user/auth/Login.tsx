@@ -4,7 +4,7 @@ import { toast } from 'sonner';
 import { useDispatch, useSelector } from 'react-redux';
 import { loginUser } from '@/redux/slices/userAuthSlice';
 import type { AppDispatch, RootState } from '@/redux/store';
- const Login = () => {
+const Login = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch<AppDispatch>();
 
@@ -65,7 +65,9 @@ import type { AppDispatch, RootState } from '@/redux/store';
               handleSubmit();
             }}
           >
-            <h2 className="text-2xl font-bold text-orange mb-6 text-center">Login to Article Feed App</h2>
+            <h2 className="text-2xl font-bold text-orange mb-6 text-center">
+              Login to Article Feed App
+            </h2>
 
             {(localError || error) && (
               <p className="text-sm text-red-500 mb-4 text-center">{localError || error}</p>
@@ -76,7 +78,7 @@ import type { AppDispatch, RootState } from '@/redux/store';
               <input
                 type="email"
                 name="email"
-                 autoComplete="email"
+                autoComplete="email"
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
                 className="w-full border border-border px-4 py-2 rounded focus:outline-none focus:ring-2 focus:ring-orange"
@@ -89,13 +91,11 @@ import type { AppDispatch, RootState } from '@/redux/store';
               <input
                 type="password"
                 value={password}
-                  autoComplete="current-password"
-
+                autoComplete="current-password"
                 onChange={(e) => setPassword(e.target.value)}
                 className="w-full border border-border px-4 py-2 rounded focus:outline-none focus:ring-2 focus:ring-orange"
                 placeholder="Enter your password"
               />
-               
             </div>
 
             <button
@@ -104,7 +104,6 @@ import type { AppDispatch, RootState } from '@/redux/store';
             >
               {loading ? 'Logging in...' : 'Login'}
             </button>
- 
 
             <p className="mt-4 text-sm text-center text-muted-foreground">
               Don’t have an account?{' '}

@@ -1,9 +1,9 @@
 import { configureStore } from '@reduxjs/toolkit';
 import userAuthReducer from './slices/userAuthSlice';
-  export const store = configureStore({
+export const store = configureStore({
   reducer: {
     userAuth: userAuthReducer,
-    },
+  },
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware({
       serializableCheck: false,

@@ -1,13 +1,13 @@
-import { useEffect, useState } from "react";
-import { Input } from "@/components/ui/Input";
-import { Label } from "@/components/ui/Label";
-import { Button } from "@/components/Button";
-import { toast } from "sonner";
-import { getUserProfile, updateUserProfile } from "@/services/user/profileService";
-import type { IUser } from "@/types/IUser";
-import ChangePassword from "./ChangePassword";
+import { useEffect, useState } from 'react';
+import { Input } from '@/components/ui/Input';
+import { Label } from '@/components/ui/Label';
+import { Button } from '@/components/Button';
+import { toast } from 'sonner';
+import { getUserProfile, updateUserProfile } from '@/services/user/profileService';
+import type { IUser } from '@/types/IUser';
+import ChangePassword from './ChangePassword';
 
-const articleOptions = ["Technology", "Sports", "Politics", "Science", "Travel", "Finance"];
+const articleOptions = ['Technology', 'Sports', 'Politics', 'Science', 'Travel', 'Finance'];
 
 const EditProfile = () => {
   const [loading, setLoading] = useState(true);
@@ -15,20 +15,20 @@ const EditProfile = () => {
 
   // errors for each field
   const [errors, setErrors] = useState<any>({
-    firstName: "",
-    lastName: "",
-    email: "",
-    phone: "",
-    dob: "",
-    preferences: "",
+    firstName: '',
+    lastName: '',
+    email: '',
+    phone: '',
+    dob: '',
+    preferences: '',
   });
 
   const [form, setForm] = useState({
-    firstName: "",
-    lastName: "",
-    phone: "",
-    email: "",
-    dob: "",
+    firstName: '',
+    lastName: '',
+    phone: '',
+    email: '',
+    dob: '',
     preferences: [] as string[],
   });
 
@@ -38,7 +38,7 @@ const EditProfile = () => {
 
   const updateField = (field: string, value: any) => {
     setForm((prev) => ({ ...prev, [field]: value }));
-    setError(field, ""); // clear field error on typing
+    setError(field, ''); // clear field error on typing
   };
 
   // Load user data
@@ -48,15 +48,15 @@ const EditProfile = () => {
       const profile: IUser = res.userProfile;
 
       setForm({
-        firstName: profile.firstName || "",
-        lastName: profile.lastName || "",
-        phone: profile.phone || "",
-        email: profile.email || "",
-        dob: profile.dob ? new Date(profile.dob).toISOString().slice(0, 10) : "",
+        firstName: profile.firstName || '',
+        lastName: profile.lastName || '',
+        phone: profile.phone || '',
+        email: profile.email || '',
+        dob: profile.dob ? new Date(profile.dob).toISOString().slice(0, 10) : '',
         preferences: profile.preferences || [],
       });
     } catch (error: any) {
-      toast.error(error.response?.data?.message || "Failed to load profile");
+      toast.error(error.response?.data?.message || 'Failed to load profile');
     } finally {
       setLoading(false);
     }
@@ -73,7 +73,7 @@ const EditProfile = () => {
         ? prev.preferences.filter((p) => p !== pref)
         : [...prev.preferences, pref],
     }));
-    setError("preferences", "");
+    setError('preferences', '');
   };
 
   // VALIDATION
@@ -88,47 +88,46 @@ const EditProfile = () => {
 
     // First Name
     if (!fName) {
-      setError("firstName", "First name is required");
+      setError('firstName', 'First name is required');
       valid = false;
     } else if (fName.length < 3) {
-      setError("firstName", "First name must be at least 3 characters");
+      setError('firstName', 'First name must be at least 3 characters');
       valid = false;
     }
 
     // Last Name
     if (!lName) {
-      setError("lastName", "Last name is required");
+      setError('lastName', 'Last name is required');
       valid = false;
     } else if (lName.length < 2) {
-      setError("lastName", "Last name must be at least 2 characters");
+      setError('lastName', 'Last name must be at least 2 characters');
       valid = false;
     }
-     if (!email && !/^\S+@\S+\.\S+$/.test(email)) {
-      setError("email", "Email cant be empty");
+    if (!email && !/^\S+@\S+\.\S+$/.test(email)) {
+      setError('email', 'Email cant be empty');
       valid = false;
     }
-     if (email && !/^\S+@\S+\.\S+$/.test(email)) {
-      setError("email", "Enter a valid email");
+    if (email && !/^\S+@\S+\.\S+$/.test(email)) {
+      setError('email', 'Enter a valid email');
       valid = false;
     }
-
 
     // Phone (optional)
     if (phone && !/^[0-9]{10}$/.test(phone)) {
-      setError("phone", "Phone number must be exactly 10 digits");
+      setError('phone', 'Phone number must be exactly 10 digits');
       valid = false;
     }
 
     // DOB (required)
     if (!dob) {
-      setError("dob", "Date of Birth is required");
+      setError('dob', 'Date of Birth is required');
       valid = false;
     } else {
       const selected = new Date(dob);
       const today = new Date();
 
       if (selected > today) {
-        setError("dob", "DOB cannot be a future date");
+        setError('dob', 'DOB cannot be a future date');
         valid = false;
       }
 
@@ -136,14 +135,14 @@ const EditProfile = () => {
       tenYearsAgo.setFullYear(today.getFullYear() - 10);
 
       if (selected > tenYearsAgo) {
-        setError("dob", "You must be at least 10 years old");
+        setError('dob', 'You must be at least 10 years old');
         valid = false;
       }
     }
 
     // Preferences
     if (form.preferences.length === 0) {
-      setError("preferences", "Select at least 1 preference");
+      setError('preferences', 'Select at least 1 preference');
       valid = false;
     }
 
@@ -168,10 +167,10 @@ const EditProfile = () => {
 
       await updateUserProfile(payload);
 
-      toast.success("Profile updated successfully!");
+      toast.success('Profile updated successfully!');
       fetchUser();
     } catch (error: any) {
-      toast.error(error.response?.data?.message || "Update failed");
+      toast.error(error.response?.data?.message || 'Update failed');
     } finally {
       setSaving(false);
     }
@@ -186,19 +185,17 @@ const EditProfile = () => {
 
         <form onSubmit={handleSubmit}>
           <div className="bg-white rounded-xl shadow-sm border p-8 space-y-8">
-            
             {/* PERSONAL INFO */}
             <div>
               <h3 className="text-lg font-semibold text-gray-700 mb-4">Personal Information</h3>
 
               <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-
                 {/* First Name */}
                 <div>
                   <Label>First Name</Label>
                   <Input
                     value={form.firstName}
-                    onChange={(e) => updateField("firstName", e.target.value)}
+                    onChange={(e) => updateField('firstName', e.target.value)}
                     placeholder="Enter first name"
                   />
                   {errors.firstName && (
@@ -211,7 +208,7 @@ const EditProfile = () => {
                   <Label>Last Name</Label>
                   <Input
                     value={form.lastName}
-                    onChange={(e) => updateField("lastName", e.target.value)}
+                    onChange={(e) => updateField('lastName', e.target.value)}
                     placeholder="Enter last name"
                   />
                   {errors.lastName && (
@@ -224,12 +221,10 @@ const EditProfile = () => {
                   <Label>Phone Number</Label>
                   <Input
                     value={form.phone}
-                    onChange={(e) => updateField("phone", e.target.value)}
+                    onChange={(e) => updateField('phone', e.target.value)}
                     placeholder="Enter phone number"
                   />
-                  {errors.phone && (
-                    <p className="text-red-500 text-sm mt-1">{errors.phone}</p>
-                  )}
+                  {errors.phone && <p className="text-red-500 text-sm mt-1">{errors.phone}</p>}
                 </div>
 
                 {/* Email */}
@@ -237,12 +232,10 @@ const EditProfile = () => {
                   <Label>Email</Label>
                   <Input
                     value={form.email}
-                    onChange={(e) => updateField("email", e.target.value)}
+                    onChange={(e) => updateField('email', e.target.value)}
                     placeholder="Enter email"
                   />
-                  {errors.email && (
-                    <p className="text-red-500 text-sm mt-1">{errors.email}</p>
-                  )}
+                  {errors.email && <p className="text-red-500 text-sm mt-1">{errors.email}</p>}
                 </div>
 
                 {/* DOB */}
@@ -252,11 +245,9 @@ const EditProfile = () => {
                     type="date"
                     value={form.dob}
                     max={new Date().toISOString().slice(0, 10)}
-                    onChange={(e) => updateField("dob", e.target.value)}
+                    onChange={(e) => updateField('dob', e.target.value)}
                   />
-                  {errors.dob && (
-                    <p className="text-red-500 text-sm mt-1">{errors.dob}</p>
-                  )}
+                  {errors.dob && <p className="text-red-500 text-sm mt-1">{errors.dob}</p>}
                 </div>
               </div>
             </div>
@@ -290,7 +281,7 @@ const EditProfile = () => {
 
             <div className="pt-4">
               <Button type="submit" disabled={saving} className="w-full md:w-auto px-6 py-2">
-                {saving ? "Saving..." : "Save Changes"}
+                {saving ? 'Saving...' : 'Save Changes'}
               </Button>
             </div>
           </div>

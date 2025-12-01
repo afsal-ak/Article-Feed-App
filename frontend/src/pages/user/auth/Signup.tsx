@@ -1,28 +1,21 @@
-import React, { useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
-import { handleRegister } from "@/services/auth/authService";
-import { toast } from "sonner";
+import React, { useState } from 'react';
+import { Link, useNavigate } from 'react-router-dom';
+import { handleRegister } from '@/services/auth/authService';
+import { toast } from 'sonner';
 
-const articleOptions = [
-  "Technology",
-  "Sports",
-  "Politics",
-  "Science",
-  "Travel",
-  "Finance",
-];
+const articleOptions = ['Technology', 'Sports', 'Politics', 'Science', 'Travel', 'Finance'];
 
 const Signup = () => {
   const navigate = useNavigate();
 
   const [form, setForm] = useState({
-    firstName: "",
-    lastName: "",
-    phone: "",
-    email: "",
-    dob: "",
-    password: "",
-    confirmPassword: "",
+    firstName: '',
+    lastName: '',
+    phone: '',
+    email: '',
+    dob: '',
+    password: '',
+    confirmPassword: '',
     preferences: [] as string[],
   });
 
@@ -36,35 +29,31 @@ const Signup = () => {
     setForm((prev) => ({ ...prev, [field]: value }));
 
     // clear error automatically
-    setErrors((prev: any) => ({ ...prev, [field]: "" }));
+    setErrors((prev: any) => ({ ...prev, [field]: '' }));
   };
 
   const validate = () => {
     const newErrors: any = {};
 
-    if (!form.firstName.trim()) newErrors.firstName = "First name is required";
-    if (!form.lastName.trim()) newErrors.lastName = "Last name is required";
+    if (!form.firstName.trim()) newErrors.firstName = 'First name is required';
+    if (!form.lastName.trim()) newErrors.lastName = 'Last name is required';
 
-    if (!/^[0-9]{10}$/.test(form.phone))
-      newErrors.phone = "Phone must be 10 digits";
+    if (!/^[0-9]{10}$/.test(form.phone)) newErrors.phone = 'Phone must be 10 digits';
 
-    if (!form.email.includes("@")) newErrors.email = "Invalid email";
+    if (!form.email.includes('@')) newErrors.email = 'Invalid email';
 
-    if (!form.dob) newErrors.dob = "Date of birth is required";
+    if (!form.dob) newErrors.dob = 'Date of birth is required';
 
-    const passwordRegex =
-      /^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!%*#?&]{6,}$/;
+    const passwordRegex = /^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!%*#?&]{6,}$/;
 
     if (!passwordRegex.test(form.password))
-      newErrors.password =
-        "Minimum 6 chars with one letter, one number, and one special char";
+      newErrors.password = 'Minimum 6 chars with one letter, one number, and one special char';
 
     if (form.password !== form.confirmPassword)
-      newErrors.confirmPassword = "Passwords do not match";
+      newErrors.confirmPassword = 'Passwords do not match';
 
     // ----------- Preference validation -----------
-    if (!form.preferences.length)
-      newErrors.preferences = "Select at least one preference";
+    if (!form.preferences.length) newErrors.preferences = 'Select at least one preference';
 
     setErrors(newErrors);
     return Object.keys(newErrors).length === 0;
@@ -80,7 +69,7 @@ const Signup = () => {
         : [...prev.preferences, value];
 
       // Clear error when selecting
-      setErrors((prevErr: any) => ({ ...prevErr, preferences: "" }));
+      setErrors((prevErr: any) => ({ ...prevErr, preferences: '' }));
 
       return { ...prev, preferences: updated };
     });
@@ -93,10 +82,10 @@ const Signup = () => {
     setLoading(true);
     try {
       await handleRegister(form);
-      toast.success("Registration Successful");
-      navigate("/login");
+      toast.success('Registration Successful');
+      navigate('/login');
     } catch (error: any) {
-      toast.error(error.response?.data?.message || "Signup failed");
+      toast.error(error.response?.data?.message || 'Signup failed');
     } finally {
       setLoading(false);
     }
@@ -114,9 +103,7 @@ const Signup = () => {
 
         <div className="w-full md:w-1/2 p-8">
           <form onSubmit={handleSubmit} className="w-full max-w-md mx-auto">
-            <h2 className="text-2xl font-bold text-orange mb-6 text-center">
-              Create an Account
-            </h2>
+            <h2 className="text-2xl font-bold text-orange mb-6 text-center">Create an Account</h2>
 
             {/* FIRST NAME */}
             <InputField
@@ -149,7 +136,7 @@ const Signup = () => {
             <InputField
               label="Email"
               field="email"
-              name='email'
+              name="email"
               type="email"
               value={form.email}
               error={errors.email}
@@ -188,9 +175,7 @@ const Signup = () => {
 
             {/* ARTICLE PREFERENCES */}
             <div className="mb-6">
-              <label className="block text-sm font-medium mb-2">
-                Article Preferences
-              </label>
+              <label className="block text-sm font-medium mb-2">Article Preferences</label>
 
               <div className="grid grid-cols-2 gap-2">
                 {articleOptions.map((item) => (
@@ -205,9 +190,7 @@ const Signup = () => {
                 ))}
               </div>
 
-              {errors.preferences && (
-                <p className="text-red-500 text-sm">{errors.preferences}</p>
-              )}
+              {errors.preferences && <p className="text-red-500 text-sm">{errors.preferences}</p>}
             </div>
 
             {/* SUBMIT */}
@@ -219,11 +202,11 @@ const Signup = () => {
               {loading && (
                 <span className="w-4 h-4 border-2 border-white border-t-transparent rounded-full animate-spin"></span>
               )}
-              {loading ? "Processing..." : "Sign Up"}
+              {loading ? 'Processing...' : 'Sign Up'}
             </button>
 
             <p className="mt-4 text-sm text-center">
-              Already have an account?{" "}
+              Already have an account?{' '}
               <Link to="/login" className="text-orange underline">
                 Login
               </Link>
@@ -238,14 +221,7 @@ const Signup = () => {
 // ----------------------------
 // Reusable Input Component
 // ----------------------------
-const InputField = ({
-  label,
-  field,
-  value,
-  onChange,
-  error,
-  type = "text",
-}: any) => (
+const InputField = ({ label, field, value, onChange, error, type = 'text' }: any) => (
   <div className="mb-4">
     <label className="block text-sm font-medium mb-1">{label}</label>
     <input
@@ -259,7 +235,6 @@ const InputField = ({
 );
 
 export default Signup;
-
 
 // import React, { useState } from 'react';
 // import { Link, useNavigate, useSearchParams } from 'react-router-dom';
@@ -322,7 +297,6 @@ export default Signup;
 //     return Object.values(newErrors).every((e) => e === '');
 //   };
 
- 
 //   const handleSubmit = async (e: React.FormEvent) => {
 //     e.preventDefault();
 //     if (!validate()) {
@@ -333,7 +307,7 @@ export default Signup;
 //       const result = await handleRegister(email, username, password);
 //       localStorage.setItem('signupEmail', email);
 //       toast.success('Registration Success');
- 
+
 //       navigate('/login');
 //     } catch (error: any) {
 //       console.log(error, 'front');
@@ -425,9 +399,8 @@ export default Signup;
 //               {loading ? 'Processing...' : 'Sign Up'}
 //             </button>
 
-          
 //             <div className="my-4 text-center text-sm text-muted-foreground">or</div>
-           
+
 //             <p className="mt-4 text-sm text-center">
 //               Already have an account?{' '}
 //               <Link to="/login" className="text-orange underline">

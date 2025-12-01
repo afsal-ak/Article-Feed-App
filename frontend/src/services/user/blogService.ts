@@ -17,26 +17,26 @@ export const fetchBlogById = async (blogId: string) => {
   console.log(response, 'from servoce');
   return response.data;
 };
- export const blockBlogByUser = async (articleId: string) => {
+export const blockBlogByUser = async (articleId: string) => {
   try {
     const response = await api.patch(`/user/blog/block/${articleId}`);
-    return response.data;  
+    return response.data;
   } catch (err: any) {
     console.error('Failed to block blog:', err);
     throw err.response?.data || err;
   }
 };
 
- export const unblockBlogByUser = async (articleId: string) => {
+export const unblockBlogByUser = async (articleId: string) => {
   try {
     const response = await api.patch(`/user/blog/unblock/${articleId}`);
-    return response.data; 
+    return response.data;
   } catch (err: any) {
     console.error('Failed to unblock blog:', err);
     throw err.response?.data || err;
   }
 };
- export const handleBlogCreation = async (formData: FormData) => {
+export const handleBlogCreation = async (formData: FormData) => {
   const response = await api.post(`/user/blog/create`, formData, {
     headers: {
       'Content-Type': 'multipart/form-data',
@@ -54,7 +54,7 @@ export const handleBlogEdit = async (blogId: string, formData: FormData) => {
   console.log(response, 'from servoce');
   return response.data;
 };
- 
+
 export const handleDeleteBlog = async (blogId: string): Promise<IBlog> => {
   const response = await api.delete(`/user/blog/delete/${blogId}`);
   return response.data;
@@ -80,8 +80,7 @@ export const handleAllUserBlogs = async (page: number, limit: number) => {
   return response.data;
 };
 
-
-export const handlePublicUserBlogs = async (userId:string,page: number, limit: number) => {
+export const handlePublicUserBlogs = async (userId: string, page: number, limit: number) => {
   const response = await api.get(`/user/blogs/public/${userId}?page=${page}&limit=${limit}`);
   return response.data;
 };

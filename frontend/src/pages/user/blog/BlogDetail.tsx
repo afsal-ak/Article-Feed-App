@@ -1,11 +1,11 @@
 import { useEffect, useState } from 'react';
-import { Heart, Slash, Verified,X } from 'lucide-react';
+import { Heart, Slash, Verified } from 'lucide-react';
 import {
   fetchBlogBySlug,
   handleLikeBlog,
   handleUnLikeBlog,
   fetchBlogLikeList,
-  blockBlogByUser
+  blockBlogByUser,
 } from '@/services/user/blogService';
 import { useNavigate, useParams } from 'react-router-dom';
 import { toast } from 'sonner';
@@ -15,13 +15,10 @@ import 'swiper/css/navigation';
 import 'swiper/css/pagination';
 import 'swiper/css';
 import { Navigation, Pagination } from 'swiper/modules';
-import { OptionsDropdown } from '@/components/OptionsDropdown ';
-import Modal from '@/components/ui/Model';
 import type { UserBasicInfo } from '@/types/UserBasicInfo';
-import { motion, AnimatePresence } from "framer-motion";
 const BlogDetail = () => {
   const { slug } = useParams();
-  const navigate = useNavigate()
+  const navigate = useNavigate();
   //console.log(slug, 'from param');
   const [liked, setLiked] = useState(false);
   // const [savedPosts, setSavedPosts] = useState();
@@ -29,22 +26,22 @@ const BlogDetail = () => {
   const [likesCount, setLikesCount] = useState(0);
   const [likedUsers, setLikedUsers] = useState<UserBasicInfo[]>([]);
   const [isLikesModalOpen, setIsLikesModalOpen] = useState(false);
- 
+
   useEffect(() => {
     const loadBlogDetail = async () => {
       if (!slug) return;
 
       try {
         const response = await fetchBlogBySlug(slug);
-        console.log(response, 'response fr')
+        console.log(response, 'response fr');
         setBlogData(response.blog);
         setLiked(response.blog?.isLiked || false);
         setLikesCount(response.blog?.likes?.length || 0);
         if (response.blog?._id) {
-          console.log(response.blog._id, 'llllll')
+          console.log(response.blog._id, 'llllll');
 
           const likesResponse = await fetchBlogLikeList(response.blog._id);
-          setLikedUsers(likesResponse)
+          setLikedUsers(likesResponse);
           console.log(likesResponse, 'blog likes');
         }
       } catch (error: any) {
@@ -54,7 +51,6 @@ const BlogDetail = () => {
 
     loadBlogDetail();
   }, [slug]);
-
 
   const toggleLike = async () => {
     if (!blogData?._id) return;
@@ -83,9 +79,9 @@ const BlogDetail = () => {
   };
 
   const handleNavigateUseProfile = (username: string) => {
-    navigate(`/profile/${username}`)
-  }
- const handleBlockBlog = async () => {
+    navigate(`/profile/${username}`);
+  };
+  const handleBlockBlog = async () => {
     if (!blogData?._id) return;
 
     try {
@@ -98,23 +94,25 @@ const BlogDetail = () => {
     }
   };
 
-//   function handleOptionSelect(value: string, _id: string, reportedType: IReportedType) {
-//     console.log("Selected option:", value);
-//     // Add your logic here based on value
-//     if (value == 'report') {
-//       setSelectedReport({ _id, reportedType })
-//       setShowReportModal(true);
+  //   function handleOptionSelect(value: string, _id: string, reportedType: IReportedType) {
+  //     console.log("Selected option:", value);
+  //     // Add your logic here based on value
+  //     if (value == 'report') {
+  //       setSelectedReport({ _id, reportedType })
+  //       setShowReportModal(true);
 
-
-//     }
-//   }
+  //     }
+  //   }
   return (
     <div className="min-h-screen bg-bg px-4 py-6">
       {blogData && (
         <article className="bg-white shadow-md rounded-xl overflow-hidden max-w-3xl mx-auto">
           {/* Header */}
           <div className="flex items-center justify-between p-4 border-b">
-            <div onClick={() => handleNavigateUseProfile(blogData.author.username)} className="flex items-center space-x-3">
+            <div
+              onClick={() => handleNavigateUseProfile(blogData.author.username)}
+              className="flex items-center space-x-3"
+            >
               {/* <img
                 src={blogData.author?.profileImage?.url || '/profile-default.jpg'}
                 alt={blogData.author?.username}
@@ -135,7 +133,7 @@ const BlogDetail = () => {
                 )} */}
               </div>
             </div>
-             <div className="flex items-center space-x-2">
+            <div className="flex items-center space-x-2">
               <button
                 onClick={handleBlockBlog}
                 className="flex items-center text-red-500 border border-red-500 px-3 py-1 rounded hover:bg-red-50 transition"
@@ -145,8 +143,8 @@ const BlogDetail = () => {
               </button>
             </div>
           </div>
-            {/* <OptionsDropdown options={options} onSelect={(value) => handleOptionSelect(value, blogData?._id!, 'blog')} /> */}
- 
+          {/* <OptionsDropdown options={options} onSelect={(value) => handleOptionSelect(value, blogData?._id!, 'blog')} /> */}
+
           {/* Images */}
           {blogData.images?.length! > 0 && (
             <Swiper
@@ -175,20 +173,20 @@ const BlogDetail = () => {
               <div className="flex items-center space-x-4">
                 <button onClick={toggleLike}>
                   <Heart
-                    className={`w-6 h-6 transition-all duration-200 ${liked
-                      ? 'fill-red-500 text-red-500'
-                      : 'text-darkText hover:text-muted-foreground'
-                      }`}
+                    className={`w-6 h-6 transition-all duration-200 ${
+                      liked
+                        ? 'fill-red-500 text-red-500'
+                        : 'text-darkText hover:text-muted-foreground'
+                    }`}
                   />
                 </button>
 
                 {/* <MessageCircle className="w-6 h-6 text-darkText hover:text-muted-foreground" /> */}
-{/* <button onClick={() => setShowCommentModal(true)}>
+                {/* <button onClick={() => setShowCommentModal(true)}>
   <MessageCircle className="w-6 h-6 text-darkText hover:text-muted-foreground" />
 </button> */}
-                
-               </div>
-             </div>
+              </div>
+            </div>
 
             {/* Likes */}
             <div
@@ -197,8 +195,6 @@ const BlogDetail = () => {
             >
               {formatNumber(likesCount)} likes
             </div>
-
-           
 
             {/* Content */}
             <div className="mb-3">
@@ -229,15 +225,14 @@ const BlogDetail = () => {
               {new Date(blogData?.createdAt!).toLocaleDateString()}
             </div>
           </div>
-           {/* <CommentModal
+          {/* <CommentModal
         isOpen={showCommentModal}
         onClose={() => setShowCommentModal(false)}
         imageUrl={blogData.images!?.[0]?.url}
         parentId={blogData._id!}
         parentType="blog"
       /> */}
-  {/* Comments Modal */}
-       
+          {/* Comments Modal */}
         </article>
       )}
       {/* {showReportModal && selectedReport && (
@@ -249,7 +244,6 @@ const BlogDetail = () => {
           />
         </Modal>
       )} */}
-
     </div>
   );
 };

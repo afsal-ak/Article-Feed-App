@@ -7,7 +7,7 @@ import BlogDetail from '@/pages/user/blog/BlogDetail';
 const CommonRoutes = (
   <Fragment>
     <Route path="/" element={<Home />} />
-     <Route path="/blog" element={<BlogsPage />} />
+    <Route path="/blog" element={<BlogsPage />} />
     <Route path="/blog/:slug" element={<BlogDetail />} />
   </Fragment>
 );

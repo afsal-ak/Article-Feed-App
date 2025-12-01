@@ -3,7 +3,7 @@ import z from 'zod';
 const imageFileSchema = z.instanceof(File).refine((file) => file.size <= 5 * 1024 * 1024, {
   message: 'Image size must be less than 5MB',
 });
- 
+
 export const blogSchema = z.object({
   title: z
     .string()
@@ -25,10 +25,9 @@ export const blogSchema = z.object({
 
   //   // Optional frontend-uploaded file
   //   coverImage: imageFileSchema.optional(),
-  category: z.enum(
-    ['Technology', 'Sports', 'Politics', 'Travel', 'Education', 'Food'],
-    { required_error: 'Category is required' }
-  ),
+  category: z.enum(['Technology', 'Sports', 'Politics', 'Travel', 'Education', 'Food'], {
+    required_error: 'Category is required',
+  }),
   images: z
     .array(imageFileSchema)
     .min(1, 'At least one image is required')

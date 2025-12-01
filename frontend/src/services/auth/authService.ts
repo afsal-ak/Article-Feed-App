@@ -1,4 +1,4 @@
-import api from "@/lib/axios/api";
+import api from '@/lib/axios/api';
 // export const handleRegister = async (
 //   email: string,
 //   username: string,
@@ -6,14 +6,14 @@ import api from "@/lib/axios/api";
 //  ): Promise<string> => {
 //   const response = await api.post(`/user/register`, { email, username, password });
 //   return response.data;
-// }; 
- 
+// };
+
 export const handleRegister = async (data: {
   firstName: string;
   lastName: string;
   phone: string;
   email: string;
-  dob: string; 
+  dob: string;
   password: string;
   confirmPassword: string;
   preferences: string[];
@@ -24,7 +24,7 @@ export const handleRegister = async (data: {
 
 export const handleLogin = async (email: string, password: string) => {
   const response = await api.post('/user/login', { email, password });
-  console.log(response,'from service')
+  console.log(response, 'from service');
   return response.data;
 };
 

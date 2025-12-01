@@ -44,7 +44,6 @@ const AddBlogForm = () => {
       category: 'Sports',
       status: 'draft',
     },
-
   });
 
   // keep RHF images in sync with hook state
@@ -134,20 +133,18 @@ const AddBlogForm = () => {
             </select>
             {errors.status && <p className="text-red-500 text-sm">{errors.status.message}</p>}
           </div>
-<div>
-  <Label>Category</Label>
-  <select {...register('category')} className="p-2 border rounded w-full">
-    <option value="Technology">Technology</option>
-    <option value="Sports">Sports</option>
-    <option value="Politics">Politics</option>
-    <option value="Travel">Travel</option>
-    <option value="Education">Education</option>
-    <option value="Food">Food</option>
-  </select>
-  {errors.category && (
-    <p className="text-red-500 text-sm">{errors.category.message}</p>
-  )}
-</div>
+          <div>
+            <Label>Category</Label>
+            <select {...register('category')} className="p-2 border rounded w-full">
+              <option value="Technology">Technology</option>
+              <option value="Sports">Sports</option>
+              <option value="Politics">Politics</option>
+              <option value="Travel">Travel</option>
+              <option value="Education">Education</option>
+              <option value="Food">Food</option>
+            </select>
+            {errors.category && <p className="text-red-500 text-sm">{errors.category.message}</p>}
+          </div>
 
           <div>
             <Label>Upload Images (Max 4)</Label>

@@ -12,8 +12,6 @@
 
 //     const navigate=useNavigate()
 
-    
-
 //   if (!isOpen) return null;
 
 //   return (
@@ -32,7 +30,7 @@
 
 //         {/* User list */}
 //         <div className="divide-y">
-            
+
 //           {users.map((user) => (
 //             <div
 //               key={user._id}

@@ -1,22 +1,20 @@
 import { Input } from '@/components/ui/Input';
 import { Label } from '@/components/ui/Label';
 import { Button } from '@/components/Button';
-import {  passwordChange } from '@/services/user/profileService';
+import { passwordChange } from '@/services/user/profileService';
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { toast } from 'sonner';
- 
+
 const ChangePassword = () => {
- 
   const navigate = useNavigate();
-   const [currentPassword, setCurrentPassword] = useState<string>('');
+  const [currentPassword, setCurrentPassword] = useState<string>('');
   const [newPassword, setNewPassword] = useState<string>('');
   const [confirmPassword, setConfirmPassword] = useState<string>('');
   const [formErrors, setFormErrors] = useState<{ password?: string; confirm?: string }>({});
 
-   const [loadingPassword, setLoadingPassword] = useState(false);
+  const [loadingPassword, setLoadingPassword] = useState(false);
 
-  
   const handlePasswordSubmit = async (e: React.FormEvent) => {
     setLoadingPassword(true);
     e.preventDefault();
@@ -59,7 +57,6 @@ const ChangePassword = () => {
 
   return (
     <div className="space-y-6">
-      
       <form onSubmit={handlePasswordSubmit}>
         <div>
           <Label htmlFor="currentPassword">Current Password</Label>

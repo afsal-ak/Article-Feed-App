@@ -20,9 +20,9 @@ export interface IBlog {
     profileImage?: {
       url: string;
     };
-    firstName:string
+    firstName: string;
   };
-  category:string;
+  category: string;
   isBlocked?: boolean;
   createdAt?: Date;
   updatedAt?: Date;

@@ -9,25 +9,18 @@ import EditBlogForm from '@/pages/user/blog/EditBlogForm';
 import UserBlogDetail from '@/pages/user/blog/UserBlogDetail';
 import BlogDetail from '@/pages/user/blog/BlogDetail';
 import BlogsPage from '@/pages/user/blog/BlogPage';
- const ProtectedRoutes = (
-
+const ProtectedRoutes = (
   <Route element={<UserProtectedRoutes />}>
     <Route path="/home" element={<Home />} />
-<Route path="/blog" element={<BlogsPage />} />
+    <Route path="/blog" element={<BlogsPage />} />
     <Route path="/blog/:slug" element={<BlogDetail />} />
 
-     <Route path="/profile" element={<EditProfile />} />
+    <Route path="/profile" element={<EditProfile />} />
 
-  <Route path="/account/my-blogs" element={<UserBlogsPage />} />
-      <Route path="/account/my-blogs/add" element={<AddBlogForm />} />
-      <Route path="/account/my-blogs/:slug" element={<UserBlogDetail />} />
-      <Route path="/account/my-blogs/edit/:blogId" element={<EditBlogForm />} />
-
-  
-
-
-
-
+    <Route path="/account/my-blogs" element={<UserBlogsPage />} />
+    <Route path="/account/my-blogs/add" element={<AddBlogForm />} />
+    <Route path="/account/my-blogs/:slug" element={<UserBlogDetail />} />
+    <Route path="/account/my-blogs/edit/:blogId" element={<EditBlogForm />} />
   </Route>
 );
-export default ProtectedRoutes
+export default ProtectedRoutes;

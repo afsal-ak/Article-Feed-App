@@ -1,10 +1,7 @@
-
-
- 
-export type IRole = "user" | "admin";
+export type IRole = 'user' | 'admin';
 
 export interface IUser {
-  _id?:   string;
+  _id?: string;
   firstName: string;
   lastName: string;
   phone: string;
